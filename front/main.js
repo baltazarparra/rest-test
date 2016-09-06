@@ -3,12 +3,25 @@
     'use strict';
 
     var ajax = new XMLHttpRequest();
-    ajax.open('GET', 'http://localhost:3000/user/kleber');
-    ajax.send();
+    ajax.open('POST', 'http://localhost:3000/user');
+    ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    ajax.send('username=fernando&user=Fernando&age=27');
 
-    ajax.addEventListener('readystatechange', function(e) {
+    console.log('cadastrando...');
+
+    ajax.onreadystatechange = function() {
         if (ajax.readyState === 4) {
-            console.log(ajax.responseText, ajax.status);
+            console.log('Ok!', ajax.responseText);
         }
-    }), false;
+    };
+
+    var get = new XMLHttpRequest();
+    get.open('GET', 'http://localhost:3000/user/joao');
+    get.send();
+
+    get.onreadystatechange = function() {
+        if(get.readyState === 4) {
+            console.log(JSON.parse(get.responseText));
+        }
+    };
 })();
